@@ -41,6 +41,23 @@ public:
         cout << endl;
     }
 
+    void dfs_helper(int node, vector<bool> &visited) {
+        visited[node] = true;
+        cout << node << ", ";
+
+        for (int nbr: this->l[node]) {
+            if (!visited[nbr]) {
+                dfs_helper(nbr, visited);
+            }
+        }
+    }
+
+    void dfs(int source) {
+        vector<bool> visited(this->V, false);
+        dfs_helper(source, visited);
+        cout << endl;
+    }
+
     void showGraph() {
         for (int i = 0; i < this->V; i++) {
             cout << i << ": ";
@@ -63,7 +80,10 @@ int main(void) {
     g.addEdge(4,6);
     g.addEdge(5,6);
     g.showGraph();
+    cout << "BFS: ";
     g.bfs(1);
+    cout << "DFS: ";
+    g.dfs(1);
 
     return 0;
 }
